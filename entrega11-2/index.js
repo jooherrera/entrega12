@@ -236,13 +236,18 @@ function print(objeto) {
 }
 
 const normData = normalize(holding,holdingEmpresas)
+console.log("Normalizada")
+print(normData)
 
-// print(normData)
+
+
+console.log("Desnormalizada")
+const denData = denormalize(normData.result, holdingEmpresas, normData.entities)
+print(denData)
 
 
 console.log("Original" , JSON.stringify(holding).length)
 console.log("Normalizada", JSON.stringify(normData).length)
 
-
-const denData = denormalize(normData.result, holdingEmpresas, normData.entities)
-print(denData)
+const prom = (JSON.stringify(normData).length * 100) / JSON.stringify(holding).length
+console.log(`Promedio de compresión: ${100-(Math.round(prom)) }%`)
