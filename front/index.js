@@ -1,21 +1,28 @@
-const info = document.getElementById('info')
+const form = document.getElementById('formLogIn')
 
 
-fetch("http://localhost:8080/api/productos-test")
-.then(response => response.json())
-.then(data => {
-  let html = ""
- data.prods.forEach(element => {
-  html += `
-  <tr >
-  <th scope="row">${element.id}</th>
-  <td>${element.name}</td>
-  <td>${element.price}</td>
-  <td> <img src="${element.pictureURL}" alt="" width="100"></td>
-</tr>
-  `   
- });
+
+form.addEventListener('submit',(e) => {
+  e.preventDefault()
+  const user = document.getElementById('typeEmailX').value
+  const password = document.getElementById('typePasswordX').value
   
-info.innerHTML = html
+  try {
+    fetch(`${HOST}/login?user=${user}&password=${password}`)
+    .then(res => {
+      if(res.status === 200){
+        location.href = 'logeado.html'
+      }
+      if(res.status === 400){
+        console.log("No se pudo logeaar")
+      }
 
+    })
+
+
+  } catch (error) {
+    console.log(error)
+  }
+
+  
 })
